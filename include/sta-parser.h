@@ -3,7 +3,11 @@
 
 #include <string>
 #include <vector>
+#include <map>
+
 #include "fields.h"
+
+class STARegister;
 
 class STAParser {
 private:
@@ -16,6 +20,7 @@ private:
     void proccessLine(const std::string& line);
     void writeHeader();
     void writeField(const FieldInfo& info, const std::string& fieldValue);
+    void writeRegister(const STARegister& reg);
 
 public:
 

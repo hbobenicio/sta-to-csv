@@ -2,7 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
 #include "sta-converter.h"
+#include "sta-register.h"
 
 using namespace std;
 
@@ -58,15 +60,26 @@ void STAParser::writeHeader() {
 
 void STAParser::proccessLine(const string& line) {
 	int offset = 0;
-	for (auto it = fieldsInfo.begin(); it != fieldsInfo.end(); it++) {
-		int fieldLength = it->readLength();
+	STARegister reg;
+	for (auto& info: fieldsInfo) {
+		int fieldLength = info.readLength();
 		string fieldValue = line.substr(offset, fieldLength);
 
-		writeField(*it, fieldValue);
+		//writeField(*it, fieldValue);
+		reg.addField(info, fieldValue);
 
 		offset += fieldLength;
 	}
+
+	writeRegister(reg);
+
 	cout << endl;
+}
+
+void STAParser::writeRegister(const STARegister& reg) {
+	for (auto& info: fieldsInfo) {
+		writeField(info, reg.getValue(info.name));
+	}
 }
 
 void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue) {

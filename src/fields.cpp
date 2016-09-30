@@ -2,7 +2,9 @@
 
 #include <cassert>
 
-FieldInfo::FieldInfo(const std::string& name, char type, const std::string& size)
+using namespace std;
+
+FieldInfo::FieldInfo(const string& name, char type, const string& size)
     : name(name), type(type), size(size)
 {
     decimalSeparatorPos = size.find(",");
@@ -10,24 +12,24 @@ FieldInfo::FieldInfo(const std::string& name, char type, const std::string& size
 
 int FieldInfo::readLength() const {
     if (isDecimal()) {
-        std::string x = beforeDecimalSeparator();
-        std::string y = afterDecimalSeparator();
-        return std::stoi(x) + std::stoi(y);
+        string x = beforeDecimalSeparator();
+        string y = afterDecimalSeparator();
+        return stoi(x) + stoi(y);
     } else {
-        return std::stoi(size);
+        return stoi(size);
     }
 }
 
 bool FieldInfo::isDecimal() const {
-    return decimalSeparatorPos != std::string::npos;
+    return decimalSeparatorPos != string::npos;
 }
 
-std::string FieldInfo::beforeDecimalSeparator() const {
+string FieldInfo::beforeDecimalSeparator() const {
     assert(isDecimal());
     return size.substr(0, decimalSeparatorPos);
 }
 
-std::string FieldInfo::afterDecimalSeparator() const {
+string FieldInfo::afterDecimalSeparator() const {
     assert(isDecimal());
     return size.substr(decimalSeparatorPos + 1);
 }
