@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "sta-converter.h"
 
 using namespace std;
 
@@ -25,12 +26,8 @@ void STAParser::parseRef() {
 		string fieldName, fieldSize;
 		char fieldType;
 
-        FieldInfo info;
 		while(file >> fieldName >> fieldType >> fieldSize) {
-            info.name = fieldName;
-            info.size = fieldSize;
-            info.type = fieldType;
-
+			FieldInfo info(fieldName, fieldType, fieldSize);
             fieldsInfo.push_back(info);
 		}
 
@@ -42,7 +39,7 @@ void STAParser::parseData() {
 	ifstream file(dataFilePath.c_str());
 
 	if (file) {
-		// writeHeader();
+		writeHeader();
 
 		for (string line; getline(file, line); ) {
 			proccessLine(line);
@@ -50,6 +47,13 @@ void STAParser::parseData() {
 
 		file.close();
 	}
+}
+
+void STAParser::writeHeader() {
+	for (auto it = fieldsInfo.begin(); it != fieldsInfo.end(); it++) {
+		cout << "\"" << it->name << "\";";
+	}
+	cout << endl;
 }
 
 void STAParser::proccessLine(const string& line) {
@@ -68,9 +72,8 @@ void STAParser::proccessLine(const string& line) {
 void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue) {
 	if (info.type == 'A') {
 		cout << "\"" << fieldValue << "\";";
-	} else if (info.type == 'N') {
-		// TODO Formatar considerando vírgula
-		cout << "" << fieldValue << ";";
+	} else if (info.type == 'N' || info.type == 'P') {
+		cout << "" << STAConverter::formatDecimal(info, fieldValue) << ";";
 	} else {
 		cout << "" << fieldValue << ";";
 	}
