@@ -9,7 +9,7 @@
 using namespace std;
 
 STAParser::STAParser(const string& refFilePath, const string& dataFilePath)
-    : refFilePath(refFilePath), dataFilePath(dataFilePath)
+    : refFilePath(refFilePath), dataFilePath(dataFilePath), multipleFilterMode(AND)
 {
 }
 
@@ -96,16 +96,36 @@ void STAParser::addFilter(const STAFilter& filter) {
 	this->filters.push_back(filter);
 }
 
-bool STAParser::acceptFilter(const STARegister& reg) const {
-	for (auto& filter : this->filters) {
-		auto op = filter.getComparisonFunction();
-		string registerValue = reg.getValue(filter.getFieldName());
-		string filterValue = filter.getValue();
+void STAParser::setMultipleFilterMode(MultipleFilterMode mode) {
+	this->multipleFilterMode = mode;
+}
 
-		bool accepted = op(filterValue, registerValue);
-		if (!accepted) {
-			return false;
+bool STAParser::acceptFilter(const STARegister& reg) const {
+	if (this->multipleFilterMode == AND) {
+		for (auto& filter : this->filters) {
+			auto op = filter.getComparisonFunction();
+			string registerValue = reg.getValue(filter.getFieldName());
+			string filterValue = filter.getValue();
+
+			bool accepted = op(filterValue, registerValue);
+			if (!accepted) {
+				return false;
+			}
 		}
+		return true;
+	} else if (this->multipleFilterMode == OR) {
+		for (auto& filter : this->filters) {
+			auto op = filter.getComparisonFunction();
+			string registerValue = reg.getValue(filter.getFieldName());
+			string filterValue = filter.getValue();
+
+			bool accepted = op(filterValue, registerValue);
+			if (accepted) {
+				return true;
+			}
+		}
+		return false;
+	} else {
+		return false;
 	}
-	return true;
 }
