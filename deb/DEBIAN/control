@@ -1,8 +1,0 @@
-Package: sta-to-csv
-Architecture: amd64
-Maintainer: Hugo Benicio <hugo.oliveira@serpro.gov.br>
-Depends: libc6 (>= 2.23), libstdc++6 (>= 5.3.1)
-Priority: optional
-Version: 0.1
-Description: Conversor STA para CSV
-	Este é um conversor simples de arquivos STA para CSV

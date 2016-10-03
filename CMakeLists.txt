@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 2.8.10)
 project(sta-to-csv)
 
 # Configure it according to build profile
-#set (CMAKE_CXX_FLAGS "-std=c++14 -O0 -g -Wall")
-set (CMAKE_CXX_FLAGS "-std=c++14 -O2 -s -Wall")
+# (cmake -DCMAKE_BUILD_TYPE=Release|Debug)
+set(CMAKE_CXX_FLAGS "-std=c++14 -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -s")
 
 include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
@@ -13,10 +15,10 @@ install(TARGETS sta-to-csv RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR "DEB")
 set(CPACK_DEBIAN_PACKAGE_NAME "sta-to-csv")
-#set(CPACK_PACKAGE_VERSION_MAJOR "0")
-#set(CPACK_PACKAGE_VERSION_MINOR "1")
-#set(CPACK_PACKAGE_VERSION_PATCH "0")
-set(CPACK_DEBIAN_PACKAGE_VERSION "0.1")
+set(CPACK_PACKAGE_VERSION_MAJOR "0")
+set(CPACK_PACKAGE_VERSION_MINOR "1")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_DEBIAN_PACKAGE_VERSION "0.1.0")
 set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 
 # Configure it according to build system
