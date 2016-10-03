@@ -2,8 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <memory>
-#include <functional>
 
 #include "sta-converter.h"
 #include "sta-register.h"

@@ -19,10 +19,12 @@ private:
 
     void parseRef();
     void parseData();
+
     void proccessLine(const std::string& line);
+    
     void writeHeader();
-    void writeField(const FieldInfo& info, const std::string& fieldValue);
     void writeRegister(const STARegister& reg);
+    void writeField(const FieldInfo& info, const std::string& fieldValue);
 
     bool acceptFilter(const STARegister& reg) const;
 
