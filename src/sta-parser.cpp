@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <memory>
+#include <functional>
 
 #include "sta-converter.h"
 #include "sta-register.h"
@@ -65,21 +67,21 @@ void STAParser::proccessLine(const string& line) {
 		int fieldLength = info.readLength();
 		string fieldValue = line.substr(offset, fieldLength);
 
-		//writeField(*it, fieldValue);
 		reg.addField(info, fieldValue);
 
 		offset += fieldLength;
 	}
 
-	writeRegister(reg);
-
-	cout << endl;
+	if (acceptFilter(reg)) {
+		writeRegister(reg);
+	}
 }
 
 void STAParser::writeRegister(const STARegister& reg) {
 	for (auto& info: fieldsInfo) {
 		writeField(info, reg.getValue(info.name));
 	}
+	cout << endl;
 }
 
 void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue) {
@@ -90,4 +92,22 @@ void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue)
 	} else {
 		cout << "" << fieldValue << ";";
 	}
+}
+
+void STAParser::addFilter(const STAFilter& filter) {
+	this->filters.push_back(filter);
+}
+
+bool STAParser::acceptFilter(const STARegister& reg) const {
+	for (auto& filter : this->filters) {
+		auto op = filter.getComparisonFunction();
+		string registerValue = reg.getValue(filter.getFieldName());
+		string filterValue = filter.getValue();
+
+		bool accepted = op(filterValue, registerValue);
+		if (!accepted) {
+			return false;
+		}
+	}
+	return true;
 }

@@ -1,28 +1,31 @@
 #ifndef STA_FILTER_H_INCLUDED
 #define STA_FILTER_H_INCLUDED
 
-#include <functional>
 #include <string>
+#include <memory>
+#include <functional>
 
-typedef std::binary_function<const std::string&, const std::string&, bool> STAComparator;
-
-struct Eq : public STAComparator {
-    bool operator() (const std::string& a, const std::string& b) {
-        return a == b;
-    }
-};
+typedef std::function<bool(const std::string&, const std::string&)> STAFilterFunc;
 
 class STAFilter
 {
 private:
     std::string fieldName;
-    STAComparator comparisonFunction;
+    STAFilterFunc comparisonFunction;
     std::string value;
 
 public:
-    STAFilter(const std::string& fieldName, const STAComparator& comp, const std::string& value);
+    STAFilter();
+    STAFilter(const std::string& fieldName, STAFilterFunc comp, const std::string& value);
     virtual ~STAFilter();
 
+    void setFieldName(const std::string& fieldName);
+    void setComparisonFunction(STAFilterFunc comparisonFunction);
+    void setValue(const std::string& value);
+
+    std::string getFieldName() const;
+    STAFilterFunc getComparisonFunction() const;
+    std::string getValue() const;
 };
 
 #endif

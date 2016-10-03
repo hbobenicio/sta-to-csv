@@ -6,6 +6,7 @@
 #include <map>
 
 #include "fields.h"
+#include "sta-filter.h"
 
 class STARegister;
 
@@ -14,6 +15,7 @@ private:
     std::string refFilePath;
     std::string dataFilePath;
 	std::vector<FieldInfo> fieldsInfo;
+    std::vector<STAFilter> filters;
 
     void parseRef();
     void parseData();
@@ -22,12 +24,16 @@ private:
     void writeField(const FieldInfo& info, const std::string& fieldValue);
     void writeRegister(const STARegister& reg);
 
+    bool acceptFilter(const STARegister& reg) const;
+
 public:
 
     STAParser(const std::string& refFilePath, const std::string& dataFilePath);
     virtual ~STAParser();
 
     void parse();
+
+    void addFilter(const STAFilter& filter);
 };
 
 #endif
