@@ -5,8 +5,8 @@ using namespace std;
 STAFilter::STAFilter() {
 }
 
-STAFilter::STAFilter(const string& fieldName, STAFilterFunc comparisonFunction, const string& value)
-    : fieldName(fieldName), comparisonFunction(comparisonFunction), value(value)
+STAFilter::STAFilter(const string& fieldName, STAFilterFunc comparisonFunction)
+    : fieldName(fieldName), comparisonFunction(comparisonFunction)
 {
 
 }
@@ -22,18 +22,10 @@ void STAFilter::setComparisonFunction(STAFilterFunc comparisonFunction) {
     this->comparisonFunction = comparisonFunction;
 }
 
-void STAFilter::setValue(const string& value) {
-    this->value = value;
-}
-
 string STAFilter::getFieldName() const {
     return fieldName;
 }
 
 STAFilterFunc STAFilter::getComparisonFunction() const {
     return comparisonFunction;
-}
-
-string STAFilter::getValue() const {
-    return value;
 }

@@ -4,29 +4,26 @@
 #include <string>
 #include <functional>
 
-typedef std::function<bool(const std::string&, const std::string&)> STAFilterFunc;
+typedef std::function<bool(const std::string&)> STAFilterFunc;
 
 class STAFilter
 {
 private:
     std::string fieldName;
     STAFilterFunc comparisonFunction;
-    std::string value;
 
 public:
     STAFilter();
-    STAFilter(const std::string& fieldName, STAFilterFunc comp, const std::string& value);
+    STAFilter(const std::string& fieldName, STAFilterFunc comp);
     virtual ~STAFilter();
 
     // SETTERS
     void setFieldName(const std::string& fieldName);
     void setComparisonFunction(STAFilterFunc comparisonFunction);
-    void setValue(const std::string& value);
 
     // GETTERS
     std::string getFieldName() const;
     STAFilterFunc getComparisonFunction() const;
-    std::string getValue() const;
 };
 
 #endif

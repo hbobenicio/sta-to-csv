@@ -9,7 +9,7 @@
 using namespace std;
 
 STAParser::STAParser(const string& refFilePath, const string& dataFilePath)
-    : refFilePath(refFilePath), dataFilePath(dataFilePath), multipleFilterMode(AND)
+    : refFilePath(refFilePath), dataFilePath(dataFilePath), multipleFilterMode(MultipleFilterMode::AND)
 {
 }
 
@@ -105,9 +105,8 @@ bool STAParser::acceptFilter(const STARegister& reg) const {
 		for (auto& filter : this->filters) {
 			auto op = filter.getComparisonFunction();
 			string registerValue = reg.getValue(filter.getFieldName());
-			string filterValue = filter.getValue();
 
-			bool accepted = op(filterValue, registerValue);
+			bool accepted = op(registerValue);
 			if (!accepted) {
 				return false;
 			}
@@ -117,9 +116,8 @@ bool STAParser::acceptFilter(const STARegister& reg) const {
 		for (auto& filter : this->filters) {
 			auto op = filter.getComparisonFunction();
 			string registerValue = reg.getValue(filter.getFieldName());
-			string filterValue = filter.getValue();
 
-			bool accepted = op(filterValue, registerValue);
+			bool accepted = op(registerValue);
 			if (accepted) {
 				return true;
 			}

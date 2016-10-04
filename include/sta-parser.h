@@ -10,15 +10,16 @@
 
 class STARegister;
 
-typedef enum { AND, OR } MultipleFilterMode;
-
 class STAParser {
+public:
+    enum MultipleFilterMode { AND, OR } ;
+
 private:
     std::string refFilePath;
     std::string dataFilePath;
 	std::vector<FieldInfo> fieldsInfo;
     std::vector<STAFilter> filters;
-    MultipleFilterMode multipleFilterMode;
+    STAParser::MultipleFilterMode multipleFilterMode;
 
     void parseRef();
     void parseData();
@@ -39,7 +40,7 @@ public:
     void parse();
 
     void addFilter(const STAFilter& filter);
-    void setMultipleFilterMode(MultipleFilterMode mode);
+    void setMultipleFilterMode(STAParser::MultipleFilterMode mode);
 };
 
 #endif
