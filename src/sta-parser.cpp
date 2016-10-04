@@ -96,7 +96,7 @@ void STAParser::addFilter(const STAFilter& filter) {
 	this->filters.push_back(filter);
 }
 
-void STAParser::setMultipleFilterMode(MultipleFilterMode mode) {
+void STAParser::setMultipleFilterMode(const MultipleFilterMode& mode) {
 	this->multipleFilterMode = mode;
 }
 
