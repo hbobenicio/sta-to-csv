@@ -102,28 +102,36 @@ void STAParser::setMultipleFilterMode(MultipleFilterMode mode) {
 
 bool STAParser::acceptFilter(const STARegister& reg) const {
 	if (this->multipleFilterMode == AND) {
-		for (auto& filter : this->filters) {
-			auto op = filter.getComparisonFunction();
-			string registerValue = reg.getValue(filter.getFieldName());
-
-			bool accepted = op(registerValue);
-			if (!accepted) {
-				return false;
-			}
-		}
-		return true;
-	} else if (this->multipleFilterMode == OR) {
-		for (auto& filter : this->filters) {
-			auto op = filter.getComparisonFunction();
-			string registerValue = reg.getValue(filter.getFieldName());
-
-			bool accepted = op(registerValue);
-			if (accepted) {
-				return true;
-			}
-		}
-		return false;
-	} else {
-		return false;
+		return acceptFilterModeAnd(reg);
 	}
+	if (this->multipleFilterMode == OR) {
+		return acceptFilterModeOr(reg);
+	}
+	return false;
+}
+
+bool STAParser::acceptFilterModeAnd(const STARegister& reg) const {
+	for (auto& filter : this->filters) {
+		auto op = filter.getComparisonFunction();
+		string registerValue = reg.getValue(filter.getFieldName());
+
+		bool accepted = op(registerValue);
+		if (!accepted) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool STAParser::acceptFilterModeOr(const STARegister& reg) const {
+	for (auto& filter : this->filters) {
+		auto op = filter.getComparisonFunction();
+		string registerValue = reg.getValue(filter.getFieldName());
+
+		bool accepted = op(registerValue);
+		if (accepted) {
+			return true;
+		}
+	}
+	return false;
 }

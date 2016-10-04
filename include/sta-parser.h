@@ -13,7 +13,7 @@ class STARegister;
 class STAParser {
 public:
     enum MultipleFilterMode { AND, OR } ;
-
+    
 private:
     std::string refFilePath;
     std::string dataFilePath;
@@ -31,6 +31,8 @@ private:
     void writeField(const FieldInfo& info, const std::string& fieldValue);
 
     bool acceptFilter(const STARegister& reg) const;
+    bool acceptFilterModeAnd(const STARegister& reg) const;
+    bool acceptFilterModeOr(const STARegister& reg) const;
 
 public:
 
