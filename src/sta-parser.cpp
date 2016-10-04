@@ -22,7 +22,7 @@ void STAParser::parse() {
 }
 
 void STAParser::parseRef() {
-	ifstream file(refFilePath.c_str());
+	ifstream file(this->refFilePath.c_str());
 
 	if (file) {
 		string fieldName, fieldSize;
@@ -30,7 +30,7 @@ void STAParser::parseRef() {
 
 		while(file >> fieldName >> fieldType >> fieldSize) {
 			FieldInfo info(fieldName, fieldType, fieldSize);
-            fieldsInfo.push_back(info);
+            this->fieldsInfo.push_back(info);
 		}
 
 		file.close();
@@ -38,7 +38,7 @@ void STAParser::parseRef() {
 }
 
 void STAParser::parseData() {
-	ifstream file(dataFilePath.c_str());
+	ifstream file(this->dataFilePath.c_str());
 
 	if (file) {
 		writeHeader();
@@ -52,8 +52,8 @@ void STAParser::parseData() {
 }
 
 void STAParser::writeHeader() {
-	for (auto it = fieldsInfo.begin(); it != fieldsInfo.end(); it++) {
-		cout << "\"" << it->name << "\";";
+	for (auto& info: this->fieldsInfo) {
+		cout << "\"" << info.name << "\";";
 	}
 	cout << endl;
 }
@@ -61,7 +61,7 @@ void STAParser::writeHeader() {
 void STAParser::proccessLine(const string& line) {
 	int offset = 0;
 	STARegister reg;
-	for (auto& info: fieldsInfo) {
+	for (auto& info: this->fieldsInfo) {
 		int fieldLength = info.readLength();
 		string fieldValue = line.substr(offset, fieldLength);
 
@@ -76,7 +76,7 @@ void STAParser::proccessLine(const string& line) {
 }
 
 void STAParser::writeRegister(const STARegister& reg) {
-	for (auto& info: fieldsInfo) {
+	for (auto& info: this->fieldsInfo) {
 		writeField(info, reg.getValue(info.name));
 	}
 	cout << endl;

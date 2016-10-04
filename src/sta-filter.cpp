@@ -23,9 +23,9 @@ void STAFilter::setComparisonFunction(STAFilterFunc comparisonFunction) {
 }
 
 string STAFilter::getFieldName() const {
-    return fieldName;
+    return this->fieldName;
 }
 
 STAFilterFunc STAFilter::getComparisonFunction() const {
-    return comparisonFunction;
+    return this->comparisonFunction;
 }
