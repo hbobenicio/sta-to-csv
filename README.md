@@ -40,6 +40,11 @@ sta-to-csv foo-schema.REF foo-data.TXT > foo-data.csv
 PS.: Ainda será implementado o controle do arquivo de saída via parâmetro
 (atualmente, o resultado é obtido apenas via saída padrão).
 
+## Construindo pacote debian
+
+* debuild -b -uc -us
+* use dch --create from the devscripts package to create changelogs in the correct format
+
 ## Comandos úteis durante empacotamento debian
 
  * dpkg-architecture -L
