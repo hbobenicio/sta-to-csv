@@ -15,15 +15,15 @@ private:
 public:
     STAFilter();
     STAFilter(const std::string& fieldName, STAFilterFunc comp);
-    virtual ~STAFilter();
+    //STAFilter(STAFilter&& x) = default;
 
     // SETTERS
     void setFieldName(const std::string& fieldName);
-    void setComparisonFunction(STAFilterFunc comparisonFunction);
+    void setComparisonFunction(const STAFilterFunc& comparisonFunction);
 
     // GETTERS
-    std::string getFieldName() const;
-    STAFilterFunc getComparisonFunction() const;
+    const std::string& getFieldName() const;
+    const STAFilterFunc& getComparisonFunction() const;
 };
 
 #endif

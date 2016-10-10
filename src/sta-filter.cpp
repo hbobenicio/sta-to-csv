@@ -11,21 +11,18 @@ STAFilter::STAFilter(const string& fieldName, STAFilterFunc comparisonFunction)
 
 }
 
-STAFilter::~STAFilter() {
-}
-
 void STAFilter::setFieldName(const string& fieldName) {
     this->fieldName = fieldName;
 }
 
-void STAFilter::setComparisonFunction(STAFilterFunc comparisonFunction) {
+void STAFilter::setComparisonFunction(const STAFilterFunc& comparisonFunction) {
     this->comparisonFunction = comparisonFunction;
 }
 
-string STAFilter::getFieldName() const {
+const string& STAFilter::getFieldName() const {
     return this->fieldName;
 }
 
-STAFilterFunc STAFilter::getComparisonFunction() const {
+const STAFilterFunc& STAFilter::getComparisonFunction() const {
     return this->comparisonFunction;
 }

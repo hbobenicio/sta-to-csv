@@ -9,11 +9,8 @@
 using namespace std;
 
 STAParser::STAParser(const string& refFilePath, const string& dataFilePath)
-    : refFilePath(refFilePath), dataFilePath(dataFilePath), multipleFilterMode(MultipleFilterMode::AND)
+    : refFilePath(refFilePath), dataFilePath(dataFilePath)
 {
-}
-
-STAParser::~STAParser() {
 }
 
 void STAParser::parse() {
@@ -24,7 +21,7 @@ void STAParser::parse() {
 void STAParser::parseRef() {
 	ifstream file(this->refFilePath.c_str());
 
-	if (file) {
+	if (file && file.is_open()) {
 		string fieldName, fieldSize;
 		char fieldType;
 
@@ -40,7 +37,7 @@ void STAParser::parseRef() {
 void STAParser::parseData() {
 	ifstream file(this->dataFilePath.c_str());
 
-	if (file) {
+	if (file && file.is_open()) {
 		writeHeader();
 
 		for (string line; getline(file, line); ) {
@@ -134,4 +131,8 @@ bool STAParser::acceptFilterModeOr(const STARegister& reg) const {
 		}
 	}
 	return false;
+}
+
+void STAParser::setStrictConvertion(bool strictConvertion) {
+  this->strictConvertion = strictConvertion;
 }

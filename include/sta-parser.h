@@ -17,9 +17,10 @@ public:
 private:
     std::string refFilePath;
     std::string dataFilePath;
-	std::vector<FieldInfo> fieldsInfo;
+    std::vector<FieldInfo> fieldsInfo;
     std::vector<STAFilter> filters;
-    MultipleFilterMode multipleFilterMode;
+    MultipleFilterMode multipleFilterMode {MultipleFilterMode::AND};
+    bool strictConvertion {false};
 
     void parseRef();
     void parseData();
@@ -37,12 +38,13 @@ private:
 public:
 
     STAParser(const std::string& refFilePath, const std::string& dataFilePath);
-    virtual ~STAParser();
+    STAParser(STAParser&&) = default;
 
     void parse();
 
     void addFilter(const STAFilter& filter);
     void setMultipleFilterMode(const MultipleFilterMode& mode);
+    void setStrictConvertion(bool strictFlag);
 };
 
 #endif
