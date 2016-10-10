@@ -4,10 +4,11 @@ project(sta-to-csv)
 # Configure it according to build profile
 # (cmake -DCMAKE_BUILD_TYPE=Release|Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 ")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -s")
 
 include_directories(include)
+
 file(GLOB SOURCES "src/*.cpp")
 add_executable(sta-to-csv ${SOURCES})
 
@@ -35,3 +36,5 @@ set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_SOURCE_DIR}/deb/usr/share/doc/pkg/copyright;")
 
 include(CPack)
+
+add_subdirectory(test)
