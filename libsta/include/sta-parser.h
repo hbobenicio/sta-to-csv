@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <fstream>
 
 #include "fields.h"
 #include "sta-filter.h"
@@ -17,8 +18,12 @@ public:
 private:
     std::string refFilePath;
     std::string dataFilePath;
+    std::string outputFilePath;
+    std::ofstream outputFile;
+
     std::vector<FieldInfo> fieldsInfo;
     std::vector<STAFilter> filters;
+
     MultipleFilterMode multipleFilterMode {MultipleFilterMode::AND};
     bool strictConvertion {false};
 
@@ -35,10 +40,14 @@ private:
     bool acceptFilterModeAnd(const STARegister& reg) const;
     bool acceptFilterModeOr(const STARegister& reg) const;
 
+    bool validateFilters() const;
+    bool validateFilter(const STAFilter& filter) const;
+
 public:
 
-    STAParser(const std::string& refFilePath, const std::string& dataFilePath);
+    STAParser(const std::string& refFilePath, const std::string& dataFilePath, const std::string& outputFilePath);
     STAParser(STAParser&&) = default;
+    virtual ~STAParser();
 
     void parse();
 

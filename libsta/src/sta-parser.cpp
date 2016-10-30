@@ -2,15 +2,22 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 #include "sta-converter.h"
 #include "sta-register.h"
 
 using namespace std;
 
-STAParser::STAParser(const string& refFilePath, const string& dataFilePath)
-    : refFilePath(refFilePath), dataFilePath(dataFilePath)
+STAParser::STAParser(const std::string& refFilePath, const std::string& dataFilePath, const std::string& outputFilePath)
+	: refFilePath(refFilePath), dataFilePath(dataFilePath), outputFilePath(outputFilePath)
 {
+}
+
+STAParser::~STAParser() {
+	if (this->outputFile.is_open()) {
+		this->outputFile.close();
+	}
 }
 
 void STAParser::parse() {
@@ -31,13 +38,44 @@ void STAParser::parseRef() {
 		}
 
 		file.close();
+
+		if(!validateFilters()) {
+			// TODO Make it return to the user as an std::runtime_error
+			cerr << "Invalid filters. Aborting." << endl;
+			exit(EXIT_FAILURE);
+		}
 	}
+}
+
+bool STAParser::validateFilters() const {
+	// Validate all filters. if one fails, then fail the validation
+	for (auto& filter: this->filters) {
+		if (!validateFilter(filter)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool STAParser::validateFilter(const STAFilter& filter) const {
+	// searchs the fields information to check if this filter is
+	// correctly associated with any field.
+	for (auto& info: this->fieldsInfo) {
+		if (info.name == filter.getFieldName()) {
+			return true;
+		}
+	}
+
+	// if it doen't match none of the items in fieldsInfo, then fail validation.
+	return false;
 }
 
 void STAParser::parseData() {
 	ifstream file(this->dataFilePath.c_str());
+	this->outputFile.open(this->outputFilePath);
 
-	if (file && file.is_open()) {
+	if (file.is_open() && this->outputFile.is_open()) {
+
 		writeHeader();
 
 		for (string line; getline(file, line); ) {
@@ -50,9 +88,9 @@ void STAParser::parseData() {
 
 void STAParser::writeHeader() {
 	for (auto& info: this->fieldsInfo) {
-		cout << "\"" << info.name << "\";";
+		outputFile << "\"" << info.name << "\";";
 	}
-	cout << endl;
+	outputFile << endl;
 }
 
 void STAParser::proccessLine(const string& line) {
@@ -76,16 +114,16 @@ void STAParser::writeRegister(const STARegister& reg) {
 	for (auto& info: this->fieldsInfo) {
 		writeField(info, reg.getValue(info.name));
 	}
-	cout << endl;
+	outputFile << endl;
 }
 
 void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue) {
 	if (info.type == 'A') {
-		cout << "\"" << fieldValue << "\";";
+		outputFile << "\"" << fieldValue << "\";";
 	} else if (info.type == 'N' || info.type == 'P') {
-		cout << "" << STAConverter::formatDecimal(info, fieldValue) << ";";
+		outputFile << "" << STAConverter::formatDecimal(info, fieldValue) << ";";
 	} else {
-		cout << "" << fieldValue << ";";
+		outputFile << "" << fieldValue << ";";
 	}
 }
 
