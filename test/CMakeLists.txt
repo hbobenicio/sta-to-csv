@@ -10,6 +10,8 @@ list(REMOVE_ITEM TESTING_SOURCES "${CMAKE_SOURCE_DIR}/src/main.cpp")
 # EXCLUDE_FROM_ALL makes the 'tests' target optional, so it won't build when running just 'make'.
 # You would need to run 'make tests' instead.
 add_executable(tests EXCLUDE_FROM_ALL main-test.cpp ${TESTING_SOURCES})
+add_dependencies(tests sta)
+target_link_libraries(tests sta)
 
 # Sets the library linking for the 'tests' target.
 target_link_libraries(tests ${GTEST_LIBRARIES} pthread)
