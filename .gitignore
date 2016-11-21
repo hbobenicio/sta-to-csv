@@ -2,3 +2,4 @@ build
 .swp
 resources
 resource
+.vscode/settings.json

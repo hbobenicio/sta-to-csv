@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 
-typedef std::function<bool(const std::string&)> STAFilterFunc;
+using STAFilterFunc = std::function<bool(const std::string&)>;
 
 class STAFilter
 {

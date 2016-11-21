@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 	string outputFilePath{argv[3]};
 
 	STAParser parser{refFilepath, dataFilePath, outputFilePath};
-
+/*
 	auto filtrarEventosDestaque = [](const string& value) -> bool {
 		if (value == "300300" || value == "300301" || value == "300302") {
 			return true;
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 	parser.addFilter(STAFilter{"GR-CODIGO-EVENTO(18)"s, filtrarEventosDestaque});
 	parser.addFilter(STAFilter{"GR-CODIGO-EVENTO(19)"s, filtrarEventosDestaque});
 	parser.addFilter(STAFilter{"GR-CODIGO-EVENTO(20)"s, filtrarEventosDestaque});
-
+*/
 	parser.parse();
 
 	return 0;
