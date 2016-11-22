@@ -41,7 +41,7 @@ void STAParser::parseRef() {
 
 		if(!validateFilters()) {
 			// TODO Make it return to the user as an std::runtime_error
-			cerr << "Invalid filters. Aborting." << endl;
+			cerr << "Invalid filters. Aborting.\n";
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -90,7 +90,7 @@ void STAParser::writeHeader() {
 	for (auto& info: this->fieldsInfo) {
 		outputFile << "\"" << info.name << "\";";
 	}
-	outputFile << endl;
+	outputFile << '\n';
 }
 
 void STAParser::proccessLine(const string& line) {
@@ -114,7 +114,7 @@ void STAParser::writeRegister(const STARegister& reg) {
 	for (auto& info: this->fieldsInfo) {
 		writeField(info, reg.getValue(info.name));
 	}
-	outputFile << endl;
+	outputFile << '\n';
 }
 
 void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue) {
