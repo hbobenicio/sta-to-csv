@@ -7,4 +7,5 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -s")
 
 add_subdirectory(libsta)
+add_subdirectory(cli)
 add_subdirectory(test)
