@@ -7,8 +7,6 @@
 #include "sta-converter.h"
 #include "sta-register.h"
 
-using namespace std;
-
 STAParser::STAParser(const std::string& refFilePath, const std::string& dataFilePath, const std::string& outputFilePath)
 	: refFilePath(refFilePath), dataFilePath(dataFilePath), outputFilePath(outputFilePath)
 {
@@ -26,10 +24,10 @@ void STAParser::parse() {
 }
 
 void STAParser::parseRef() {
-	ifstream file(this->refFilePath.c_str());
+	std::ifstream file(this->refFilePath.c_str());
 
 	if (file && file.is_open()) {
-		string fieldName, fieldSize;
+		std::string fieldName, fieldSize;
 		char fieldType;
 
 		while(file >> fieldName >> fieldType >> fieldSize) {
@@ -41,7 +39,7 @@ void STAParser::parseRef() {
 
 		if(!validateFilters()) {
 			// TODO Make it return to the user as an std::runtime_error
-			cerr << "Invalid filters. Aborting.\n";
+			std::cerr << "Invalid filters. Aborting.\n";
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -71,14 +69,15 @@ bool STAParser::validateFilter(const STAFilter& filter) const {
 }
 
 void STAParser::parseData() {
-	ifstream file(this->dataFilePath.c_str());
+	std::ifstream file(this->dataFilePath.c_str());
+
 	this->outputFile.open(this->outputFilePath);
 
-	if (file.is_open() && this->outputFile.is_open()) {
+	if (file.is_open() && outputFile.is_open()) {
 
 		writeHeader();
 
-		for (string line; getline(file, line); ) {
+		for (std::string line; getline(file, line); ) {
 			proccessLine(line);
 		}
 
@@ -88,17 +87,17 @@ void STAParser::parseData() {
 
 void STAParser::writeHeader() {
 	for (auto& info: this->fieldsInfo) {
-		outputFile << "\"" << info.name << "\";";
+		this->outputFile << "\"" << info.name << "\";";
 	}
-	outputFile << '\n';
+	this->outputFile << '\n';
 }
 
-void STAParser::proccessLine(const string& line) {
+void STAParser::proccessLine(const std::string& line) {
 	int offset = 0;
 	STARegister reg;
 	for (auto& info: this->fieldsInfo) {
 		int fieldLength = info.readLength();
-		string fieldValue = line.substr(offset, fieldLength);
+		std::string fieldValue = line.substr(offset, fieldLength);
 
 		reg.addField(info, fieldValue);
 
@@ -114,16 +113,16 @@ void STAParser::writeRegister(const STARegister& reg) {
 	for (auto& info: this->fieldsInfo) {
 		writeField(info, reg.getValue(info.name));
 	}
-	outputFile << '\n';
+	this->outputFile << '\n';
 }
 
 void STAParser::writeField(const FieldInfo& info, const std::string& fieldValue) {
 	if (info.type == 'A') {
-		outputFile << "\"" << fieldValue << "\";";
+		this->outputFile << "\"" << fieldValue << "\";";
 	} else if (info.type == 'N' || info.type == 'P') {
-		outputFile << "" << STAConverter::formatDecimal(info, fieldValue) << ";";
+		this->outputFile << "" << STAConverter::formatDecimal(info, fieldValue) << ";";
 	} else {
-		outputFile << "" << fieldValue << ";";
+		this->outputFile << "" << fieldValue << ";";
 	}
 }
 
@@ -148,7 +147,7 @@ bool STAParser::acceptFilter(const STARegister& reg) const {
 bool STAParser::acceptFilterModeAnd(const STARegister& reg) const {
 	for (auto& filter : this->filters) {
 		auto op = filter.getComparisonFunction();
-		string registerValue = reg.getValue(filter.getFieldName());
+		std::string registerValue = reg.getValue(filter.getFieldName());
 
 		bool accepted = op(registerValue);
 		if (!accepted) {
@@ -161,7 +160,7 @@ bool STAParser::acceptFilterModeAnd(const STARegister& reg) const {
 bool STAParser::acceptFilterModeOr(const STARegister& reg) const {
 	for (auto& filter : this->filters) {
 		auto op = filter.getComparisonFunction();
-		string registerValue = reg.getValue(filter.getFieldName());
+		std::string registerValue = reg.getValue(filter.getFieldName());
 
 		bool accepted = op(registerValue);
 		if (accepted) {

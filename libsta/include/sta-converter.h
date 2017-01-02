@@ -7,8 +7,7 @@ class FieldInfo;
 
 class STAConverter
 {
-private:
-    STAConverter(){}
+    STAConverter() = delete;
 
 public:
     static std::string formatDecimal(const FieldInfo& info, const std::string& value);

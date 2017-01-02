@@ -2,6 +2,7 @@
 #include <string>
 
 #include "fields.h"
+#include "sta-parser.h"
 
 using namespace std;
 
@@ -29,6 +30,12 @@ TEST(FieldsTest, CheckReadLength)
 
 	ASSERT_EQ(nonDecimalFieldInfo.readLength(), 6);
 	ASSERT_EQ(decimalFieldInfo.readLength(), 18);
+}
+
+TEST(Parsing, BasicParsing)
+{
+	STAParser parser{"fixtures/common.ref", "fixtures/common.txt", "/tmp/sta-to-csv-BasicParsing.csv"};
+	parser.parse();
 }
 
 int main(int argc, char* argv[]) {

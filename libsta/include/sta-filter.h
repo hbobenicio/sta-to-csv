@@ -15,7 +15,6 @@ private:
 public:
     STAFilter();
     STAFilter(const std::string& fieldName, STAFilterFunc comp);
-    //STAFilter(STAFilter&& x) = default;
 
     // SETTERS
     void setFieldName(const std::string& fieldName);

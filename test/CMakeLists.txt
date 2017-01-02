@@ -20,3 +20,8 @@ target_link_libraries(tests sta)
 
 # Sets the library linking for the 'tests' target.
 target_link_libraries(tests ${GTEST_LIBRARIES} pthread)
+
+# TODO Set fixtures as dependencies of the project
+# TODO Make binary directory available for tests (independent of working directory)
+file(GLOB FIXTURES "fixtures")
+file(COPY ${FIXTURES} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
