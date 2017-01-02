@@ -1,0 +1,28 @@
+{
+	"filters": [
+		{
+			"type": "and",
+			"filters": [
+				{
+					"field": "IT-CO-UNIDADE-ORCAMENTARIA",
+					"value" : "25101"
+				},
+
+				{
+					"field": "IT-CO-UNIDADE-GESTORA",
+					"value" : "170007"
+				}
+			]
+		},
+
+		{
+			"type": "or",
+			"filters": [
+				{
+					"field": "IT-CO-ORGAO",
+					"value" : "71000"
+				}
+			]
+		}
+	]
+}

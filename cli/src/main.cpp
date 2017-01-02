@@ -5,15 +5,22 @@
 
 #include "sta-parser.h"
 
-using namespace std;
+static void printUsage()
+{
+	std::cerr << "Usage:\n";
+	std::cerr << "  ./cli <REF.txt> <DATA.txt> <OUTPUT.csv>\n\n";
+}
 
 int main(int argc, char* argv[])
 {
-	assert(argc == 4);
+	if (argc != 4) {
+		printUsage();
+		return 1;
+	}
 
-	string refFilepath{argv[1]};
-	string dataFilePath{argv[2]};
-	string outputFilePath{argv[3]};
+	std::string refFilepath{argv[1]};
+	std::string dataFilePath{argv[2]};
+	std::string outputFilePath{argv[3]};
 
 	STAParser parser{refFilepath, dataFilePath, outputFilePath};
 /*

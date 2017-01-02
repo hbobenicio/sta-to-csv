@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 2.8)
 
 find_package(GTest REQUIRED)
 
-include_directories("${CMAKE_SOURCE_DIR}/libsta/include")
+include_directories(
+    "${CMAKE_SOURCE_DIR}/libsta/include"
+    "${CMAKE_SOURCE_DIR}/vendor/nlohmann-json/2.0.9"
+)
 
 # Add all sources from the tested project into the TESTING_SOURCES list...
 set (TESTING_SOURCES ${SOURCES})

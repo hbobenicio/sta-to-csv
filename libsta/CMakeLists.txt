@@ -4,7 +4,10 @@ project(libsta)
 file(GLOB LIBSTA_HEADERS "include/*.h")
 file(GLOB LIBSTA_SOURCES "src/*.cpp")
 
-include_directories(include)
+include_directories(
+    "include"
+    "${CMAKE_SOURCE_DIR}/vendor/nlohmann-json/2.0.9"
+)
 
 add_library(sta STATIC ${LIBSTA_SOURCES})
 add_library(sta_shared SHARED ${LIBSTA_SOURCES}) # rename to libsta.so
