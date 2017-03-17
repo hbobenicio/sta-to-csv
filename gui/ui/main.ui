@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form</class>
+ <widget class="QWidget" name="form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Conversor STA para CSV</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblRef">
+     <property name="text">
+      <string>Arquivo de Layout (.REF)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hboxRefFile">
+     <item>
+      <widget class="QLineEdit" name="txtRefFile"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnBrowseRefFile">
+       <property name="text">
+        <string>Procurar...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblDataFile">
+     <property name="text">
+      <string>Arquivo de Dados (.TXT)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hboxDataFile">
+     <item>
+      <widget class="QLineEdit" name="txtDataFile"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnBrowseDataFile">
+       <property name="text">
+        <string>Procurar...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblFilters">
+     <property name="text">
+      <string>Filtros</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hboxFiltros">
+     <item>
+      <widget class="QListView" name="listViewFilters"/>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="vboxFiltersButtons">
+       <item>
+        <widget class="QPushButton" name="btnAddFilter">
+         <property name="text">
+          <string>Adicionar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnRemoveFilter">
+         <property name="text">
+          <string>Remover</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacerFiltersButtons">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
