@@ -1,0 +1,4 @@
+CAMPO_1    N 001
+CAMPO_2    A 006
+CAMPO_3    N 015,2
+CAMPO_4    N 15,2
