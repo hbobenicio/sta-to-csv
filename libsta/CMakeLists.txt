@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.10)
+cmake_minimum_required(VERSION 2.8.11)
 project(libsta)
 
 file(GLOB LIBSTA_HEADERS "include/*.h")
@@ -10,7 +10,7 @@ include_directories(
 )
 
 add_library(sta STATIC ${LIBSTA_SOURCES})
-add_library(sta_shared SHARED ${LIBSTA_SOURCES}) # rename to libsta.so
+add_library(sta_shared SHARED ${LIBSTA_SOURCES}) # TODO rename to libsta.so
 
 set_target_properties(sta PROPERTIES PUBLIC_HEADER "${LIBSTA_HEADERS}")
 

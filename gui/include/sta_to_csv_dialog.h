@@ -12,8 +12,14 @@ class StaToCsvDialog: public QWidget
     //Q_OBJECT
 
 public:
-    StaToCsvDialog(QWidget* parent = nullptr)
+    StaToCsvDialog(QWidget* parent = nullptr);
     virtual ~StaToCsvDialog();
+
+public slots:
+    void onClickBtnBrowseRefFile();
+
+private:
+    void connectWidgets();
 
 protected:
     Ui::StaToCsvDialog* ui;
