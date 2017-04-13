@@ -2,10 +2,8 @@
 #define STA_TO_CSV_DIALOG_H
 
 #include <QWidget>
-
-namespace Ui {
-    class StaToCsvDialog;
-}
+#include <memory>
+#include "ui_sta_to_csv_dialog.h"
 
 class StaToCsvDialog: public QWidget
 {
@@ -13,16 +11,19 @@ class StaToCsvDialog: public QWidget
 
 public:
     StaToCsvDialog(QWidget* parent = nullptr);
-    virtual ~StaToCsvDialog();
 
 public slots:
     void onClickBtnBrowseRefFile();
+    void onClickBtnBrowseDataFile();
+    void onClickBtnAddFilter();
+    void onClickBtnRemoveFilter();
+    void onClickBtnConvert();
 
 private:
     void connectWidgets();
 
 protected:
-    Ui::StaToCsvDialog* ui;
+    std::unique_ptr<Ui::StaToCsvDialog> ui;
 };
 
 #endif
