@@ -1,29 +1,36 @@
 # sta-to-csv
 
-Ferramenta CLI converter um arquivo STA em CSV
+Ferramenta CLI para converter um arquivo STA em CSV
 
-## Prerequisitos
+## Dependências para construção
 
-* CMake `sudo apt-get install cmake`
-* Pacote build-essential `sudo apt-get install build-essential`
-* gcc 5 ou superior (suporte a C++14)
+* CMake: `sudo apt-get install cmake`
+* Pacote build-essential (ou semelhante): `sudo apt-get install build-essential`
+* gcc 5 ou superior (suporte a C++14 ou superior)
 
 ## Compilação
 
 Navegue para o diretório do projeto e execute os seguintes comandos:
 
+#### Debug
 ```bash
-mkdir -p build/release
-cd build/release
+mkdir -p build/debug
+cd build/debug
 cmake -DCMAKE_BUILD_TYPE=Release ../..
 make
 ```
 
-Se tudo ocorrer corretamento, o binário sta-to-csv será gerado no diretorio build/release
+#### Release
+```bash
+mkdir -p build/release
+cd build/release
+cmake ../..
+make
+```
 
 ## Instalação
 
-Ainda no diretório build/release, execute o comando:
+Ainda no diretório de construção, execute o comando:
 
 ```bash
 sudo make install
