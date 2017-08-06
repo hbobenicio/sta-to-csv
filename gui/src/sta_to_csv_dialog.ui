@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="lblRef">
      <property name="text">
-      <string>Arquivo de Layout (.REF)</string>
+      <string>Arquivo de Layout (.ref)</string>
      </property>
     </widget>
    </item>
@@ -38,7 +38,7 @@
    <item>
     <widget class="QLabel" name="lblDataFile">
      <property name="text">
-      <string>Arquivo de Dados (.TXT)</string>
+      <string>Arquivo de Dados (.txt)</string>
      </property>
     </widget>
    </item>
@@ -49,6 +49,27 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnBrowseDataFile">
+       <property name="text">
+        <string>Procurar...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblOutputFile">
+     <property name="text">
+      <string>Arquivo de saida (.csv)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hboxOutputFile">
+     <item>
+      <widget class="QLineEdit" name="txtOutputFile"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnBrowseOutputFile">
        <property name="text">
         <string>Procurar...</string>
        </property>
