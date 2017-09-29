@@ -7,6 +7,7 @@ Ferramenta CLI para converter um arquivo STA em CSV
 * CMake: `sudo apt-get install cmake`
 * Pacote build-essential (ou semelhante): `sudo apt-get install build-essential`
 * gcc 5 ou superior (suporte a C++14 ou superior)
+* Qt 5+ (GUI)
 
 ## Compilação
 
