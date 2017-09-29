@@ -9,6 +9,10 @@ Ferramenta CLI para converter um arquivo STA em CSV
 * gcc 5 ou superior (suporte a C++14 ou superior)
 * Qt 5+ (GUI)
 
+## Dependências para execução dos Testes
+
+* GTest
+
 ## Compilação
 
 Navegue para o diretório do projeto e execute os seguintes comandos:
